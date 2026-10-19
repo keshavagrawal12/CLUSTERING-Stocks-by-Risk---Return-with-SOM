@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/*
+  Design tokens. Dark is the default (data-theme="dark" on <html>); the toggle swaps to light.
+  Everything in the UI references these roles, never raw hex, so both themes stay in sync.
+  Series colours are the validated 8-slot categorical palette (CVD-safe adjacent pairs),
+  stepped separately for each surface.
+*/
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e0f11;
+  --panel: #15161a;
+  --panel-2: #1b1d21;
+  --border: #26282e;
+  --border-strong: #363942;
+  --text: #ecebe6;
+  --text-2: #b4b2aa;
+  --text-3: #7d7b74;
+  --accent: #d4b26a;
+  --accent-ink: #1a1508;
+  --accent-soft: rgba(212, 178, 106, 0.12);
+  --grid-line: #22242a;
+  --neutral-mark: #6b6a66;
+  --critical: #e66767;
+  --good: #0ca30c;
+
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+  --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+
+  /* sequential (one hue, recedes toward the surface at the low end) */
+  --seq-lo: #17202c;
+  --seq-hi: #9ec5f4;
+  /* diverging poles + neutral midpoint */
+  --div-neg: #3987e5;
+  --div-mid: #383835;
+  --div-pos: #e66767;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f3ef;
+  --panel: #fcfcfb;
+  --panel-2: #f6f5f1;
+  --border: #e2e0d9;
+  --border-strong: #cfccc3;
+  --text: #121212;
+  --text-2: #52514e;
+  --text-3: #85837c;
+  --accent: #8a6516;
+  --accent-ink: #fffaf0;
+  --accent-soft: rgba(138, 101, 22, 0.1);
+  --grid-line: #ecebe6;
+  --neutral-mark: #a9a7a0;
+  --critical: #d03b3b;
+  --good: #0a7d0a;
+
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+
+  --seq-lo: #eef4fc;
+  --seq-hi: #0d366b;
+  --div-neg: #2a78d6;
+  --div-mid: #f0efec;
+  --div-pos: #e34948;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-ink-2: var(--text-2);
+  --color-ink-3: var(--text-3);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-critical: var(--critical);
+  --color-good: var(--good);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01";
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Recharts / SVG text inherits theme ink */
+.recharts-text,
+svg text {
+  fill: var(--text-2);
+  font-family: var(--font-sans);
+}
+.recharts-cartesian-grid line {
+  stroke: var(--grid-line);
+}
+.recharts-cartesian-axis-line,
+.recharts-cartesian-axis-tick-line {
+  stroke: var(--border-strong);
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+}
+
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

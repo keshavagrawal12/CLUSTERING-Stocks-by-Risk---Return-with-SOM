@@ -21,6 +21,7 @@ sector labels are only loosely related - a second angle on RQ1.
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
 
 import numpy as np
@@ -118,14 +119,18 @@ def evaluate_lvq(X: np.ndarray, sectors: np.ndarray, folds: int = config.LVQ_FOL
     classes = sorted(np.unique(y).tolist())
     idx = {c: i for i, c in enumerate(classes)}
 
-    # The number of folds can't exceed the size of the smallest class.
-    min_class = min(np.sum(y == c) for c in classes)
-    k = max(2, min(folds, int(min_class)))
+    # After merging, every class has >= LVQ_MIN_CLASS_SIZE stocks, so every class is always
+    # present in each TRAINING split. With 5 folds a 3-stock sector simply can't appear in
+    # every TEST fold - sklearn warns about that, which is expected here.
+    k = max(2, min(folds, len(y) // 2))
     skf = StratifiedKFold(n_splits=k, shuffle=True, random_state=seed)
 
     conf = np.zeros((len(classes), len(classes)), dtype=int)
     accs, base_hits = [], 0
-    for train, test in skf.split(X, y):
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message="The least populated class")
+        splits = list(skf.split(X, y))
+    for train, test in splits:
         model = LVQ1(seed=seed, **lvq_kwargs).fit(X[train], y[train])
         pred = model.predict(X[test])
         accs.append(float(np.mean(pred == y[test])))

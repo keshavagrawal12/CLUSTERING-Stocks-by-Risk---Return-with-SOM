@@ -156,7 +156,7 @@ def verdict(med_c: float, med_s: float, p: float, sh_c: float, sh_s: float) -> s
         head = (f"Cluster-diversified portfolios had lower 2025 volatility than sector-diversified ones "
                 f"(median {med_c:.1%} vs {med_s:.1%}, {abs(diff_pp):.1f} pp lower, p = {p:.3g})")
     elif sig and diff_pp > 0:
-        head = (f"Cluster-diversified portfolios were MORE volatile in 2025 than sector-diversified ones "
+        head = (f"Cluster-diversified portfolios were more volatile in 2025 than sector-diversified ones "
                 f"(median {med_c:.1%} vs {med_s:.1%}, p = {p:.3g}), so clustering did not help reduce risk")
     else:
         head = (f"No significant difference in 2025 volatility between cluster- and sector-diversified "
