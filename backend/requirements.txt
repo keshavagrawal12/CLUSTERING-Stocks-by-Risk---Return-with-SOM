@@ -1,0 +1,24 @@
+# Core numerics / data
+numpy==2.4.6
+pandas==3.0.6
+scipy==1.17.1
+scikit-learn==1.9.1   # K-means + silhouette + ARI/NMI only; SOM & LVQ are hand-written in NumPy
+
+# Data download (optional - only needed to rebuild the CSVs)
+yfinance==1.7.0
+requests==2.34.2
+
+# API
+fastapi==0.146.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.1
+python-multipart==0.0.32
+
+# Autoencoder (optional - app disables the feature if this is missing).
+# TensorFlow needs Python 3.10-3.12.
+tensorflow==2.21.0
+
+# Tests only (MiniSom is used ONLY to cross-check our own SOM)
+pytest==9.1.1
+httpx==0.28.1
+MiniSom==2.3.6
