@@ -252,3 +252,4 @@ The SOM can then be trained on the 3-D codes, and RQ1 compares ARI, NMI, QE and 
 
 ### 9. The RQ3 test
 For 2,000 random portfolios of k stocks under each rule (one stock per SOM cluster vs. k different industries), the backend computes 2025 volatility, return, Sharpe ratio and maximum drawdown. It then compares the two distributions with a **Mann–Whitney U test**, a rank test that does not assume normality. The verdict sentence is generated only from those numbers.
+# CLUSTERING-Stocks-by-Risk---Return-with-SOM
